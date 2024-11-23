@@ -16,7 +16,9 @@ struct CrySessionView: View {
         VStack {
             Form {
                 Section("When") {
-                    Text("\(crySession.date.weekday), \(crySession.date.formatted(date: .long, time: .omitted)) at \(crySession.date.formatted(date: .omitted, time: .shortened))")
+                    Text(
+                        "\(crySession.date.weekday), \(crySession.date.formatted(date: .long, time: .omitted)) at \(crySession.date.formatted(date: .omitted, time: .shortened))"
+                    )
                 }
 
                 Section("Where") {

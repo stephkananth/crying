@@ -19,13 +19,16 @@ struct ContentView: View {
                     NavigationLink {
                         CrySessionView(crySession: crySession)
                     } label: {
-                        Text(
-                            crySession.date,
-                            format: Date.FormatStyle(
-                                date: .long,
-                                time: .omitted
-                            )
-                        )
+                        HStack {
+                            Text(crySession.date.formatted(date: .numeric, time: .omitted))
+                            Spacer()
+                            HStack {
+                                ForEach(1...5, id: \.self) { rating in
+                                    Image(systemName: "drop\(rating > crySession.value ? "" : ".fill")")
+                                }
+                            }
+                            .foregroundStyle(.blue)
+                        }
                     }
                 }
                 .onDelete(perform: deleteCrySessions)
@@ -41,7 +44,7 @@ struct ContentView: View {
                 #endif
                 ToolbarItem {
                     Button(action: addCrySession) {
-                        Label("Add CrySession", systemImage: "plus")
+                        Image(systemName: "plus")
                     }
                 }
             }
