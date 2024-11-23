@@ -17,15 +17,13 @@ struct ContentView: View {
             List {
                 ForEach(crySessions) { crySession in
                     NavigationLink {
-                        Text(
-                            "CrySession at \(crySession.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))"
-                        )
+                        CrySessionView(crySession: crySession)
                     } label: {
                         Text(
-                            crySession.timestamp,
+                            crySession.date,
                             format: Date.FormatStyle(
-                                date: .numeric,
-                                time: .standard
+                                date: .long,
+                                time: .omitted
                             )
                         )
                     }
@@ -54,7 +52,7 @@ struct ContentView: View {
 
     private func addCrySession() {
         withAnimation {
-            let newItem = CrySession(timestamp: Date())
+            let newItem = CrySession()
             modelContext.insert(newItem)
         }
     }
