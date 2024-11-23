@@ -10,19 +10,27 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var crySessions: [CrySession]
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(crySessions) { crySession in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text(
+                            "CrySession at \(crySession.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))"
+                        )
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(
+                            crySession.timestamp,
+                            format: Date.FormatStyle(
+                                date: .numeric,
+                                time: .standard
+                            )
+                        )
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteCrySessions)
             }
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -34,27 +42,27 @@ struct ContentView: View {
                 }
                 #endif
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button(action: addCrySession) {
+                        Label("Add CrySession", systemImage: "plus")
                     }
                 }
             }
         } detail: {
-            Text("Select an item")
+            Text("Select a cry session")
         }
     }
 
-    private func addItem() {
+    private func addCrySession() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = CrySession(timestamp: Date())
             modelContext.insert(newItem)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteCrySessions(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(crySessions[index])
             }
         }
     }
@@ -62,5 +70,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: CrySession.self, inMemory: true)
 }
