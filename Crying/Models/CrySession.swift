@@ -40,7 +40,7 @@ final class CrySession: Identifiable {
 
 
     init(date: Date = Date(), value: Int = 3, notes: String? = nil, people: [String] = []) {
-        self.date = date
+        self.date = Date(timeIntervalSinceReferenceDate: (date.timeIntervalSinceReferenceDate / 900).rounded(.toNearestOrEven) * 900)
         self.value = value
         if let notes {
             self.notes = notes

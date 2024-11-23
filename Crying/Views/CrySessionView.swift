@@ -15,16 +15,6 @@ struct CrySessionView: View {
     var body: some View {
         VStack {
             Form {
-                Section("Who") {
-                    ForEach(crySession.people, id: \.self) { person in
-                        Text(person)
-                    }
-                }
-
-                Section("What") {
-                    Text(crySession.emoji)
-                }
-
                 Section("When") {
                     Text("\(crySession.date.weekday), \(crySession.date.formatted(date: .long, time: .omitted)) at \(crySession.date.formatted(date: .omitted, time: .shortened))")
                 }
@@ -57,14 +47,12 @@ struct CrySessionView: View {
                 }
             }
         }
-        .navigationTitle(crySession.date.formatted(date: .long, time: .omitted))
     }
 }
 
 #Preview {
     NavigationStack {
         CrySessionView(crySession: CrySession())
-            .modelContainer(for: CrySession.self, inMemory: true)
     }
 }
 
