@@ -6,15 +6,10 @@
 //
 
 import CoreLocation
-import Foundation
 import SwiftData
 
 @Model
 final class CrySession: Identifiable {
-    var people = ["Stephanie Ananth"]
-
-    var emoji = "😢"
-
     var date = Date()
 
     var locationName: String = "My apartment"
@@ -36,15 +31,16 @@ final class CrySession: Identifiable {
         }
     }
 
-
-
-
-    init(date: Date = Date(), value: Int = 3, notes: String? = nil, people: [String] = []) {
-        self.date = Date(timeIntervalSinceReferenceDate: (date.timeIntervalSinceReferenceDate / 900).rounded(.toNearestOrEven) * 900)
+    init(date: Date = Date(), value: Int = 3, notes: String? = nil) {
+        self.date = Date(
+            timeIntervalSinceReferenceDate: (
+                date.timeIntervalSinceReferenceDate / 900
+            )
+            .rounded(.toNearestOrEven) * 900
+        )
         self.value = value
         if let notes {
             self.notes = notes
         }
-        self.people.append(contentsOf: people)
     }
 }

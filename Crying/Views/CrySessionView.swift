@@ -51,9 +51,7 @@ struct CrySessionView: View {
 }
 
 #Preview {
-    NavigationStack {
-        CrySessionView(crySession: CrySession())
-    }
+    CrySessionView(crySession: CrySession())
 }
 
 fileprivate extension Date {
